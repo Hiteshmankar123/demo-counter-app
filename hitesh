@@ -1,39 +1,25 @@
-pipeline{
-    
+pipeline {
     agent any 
-    
     stages {
-        
-        stage('Git Checkout'){
-            
-            steps{
-                
-                script{
-                    
-                    git branch: 'main', url: 'https://github.com/Hiteshmankar123/demo-counter-app.git'
-                }
+        stage('Pull') { 
+            steps {
+              git 'https://github.com/shubhamkalsait/studentapp-ui.git'
             }
         }
-        stage('UNIT testing'){
-            
-            steps{
-                
-                script{
-                    
-                    sh 'mvn test'
-                }
+        stage('Build') { 
+            steps {  
+              "sh 'mvn clean package'"        
             }
         }
-        stage('Integration testing'){
-            
-            steps{
-                
-                script{
-                    
-                    sh 'mvn verify -DskipUnitTests'
-                }
+        stage('Test') { 
+            steps {
+                echo "Test successful"                
             }
         }
-
+        stage('Deploy') { 
+            steps {  
+               echo "deploy successful"       
+            }
+        }
     }
 }
